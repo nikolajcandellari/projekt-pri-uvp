@@ -1,9 +1,41 @@
 import tkinter as tk
+import logika_minskega_polja
 
-#ob začetnem kliku se nam pokaže začetni ekran
+class Minolovec:
 
+    def __init__(self, zaslon):
+        self.polje = tk.Toplevel()
+        self.polje.pack()
+        
+        vrstica = []
+        for _ in range(9):
+            vrstica.append(0)
+        stolpec = []
+        for_ in range(9):
+            stolpec.append(0)
+        self.gumbi = tk.Button(row = , column = x)
+        self.gumbi.pack()
+        
+
+
+
+
+
+
+
+
+   
 zaslon = tk.Tk()
-naslov = tk.Label(zaslon, text ='MINOLOVEC')
+self.gumbi.pack()
+zaslon.mainloop()
+
+
+
+
+
+
+
+'''naslov = tk.Label(zaslon, text ='MINOLOVEC')
 naslov.pack()
 
 def zapri():
@@ -12,16 +44,6 @@ def zapri():
 gumb_za_izhod = tk.Button(zaslon, text = 'Izhod' , command = zapri)
 gumb_za_izhod.pack()
 
-with open('logika_minskega_polja.py') as logika:
-    def ustvari_minsko_polje():
-        class Minsko_polje
 gumb_za_zacetek_igre = tk.Button(zaslon, text = 'Nova igra'
-                                 , command = ustvari_minsko_polje)
-gumb_za_zacetek_igre.pack()
-
-
-
-   
-
-zaslon.mainloop()
-
+                                 , command = self.matrika)
+gumb_za_zacetek_igre.pack()'''
