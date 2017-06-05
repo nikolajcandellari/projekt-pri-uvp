@@ -7,32 +7,48 @@ class Minolovec:
     def __init__(self, zaslon):
 
         self.stevec_min = tk.Label(zaslon, text = '10')
+        self.stevec_min.grid(row =0, column = 0)
         
-        self.gumbi = range(81)
-        vrstice = []
-        for vrstice in range(9):
-            stolpci = []
-            for stolpci in range(9):
-                def klik_z_misko():
-                    if 'Button-1' == True: #ne najdem primerne funkcije, ki bi
-                                           # zaznala ko bi bil gumb kliknjen 
-                                           # z levo tipko na miski
+        self.polja = []
+        for _ in range(9):
+            vrstica = []
+            for _ in range(9):
+                vrstica.append(None)
+            self.polja.append(vrstica)
 
-                        
-                        
-                    elif 'Button-2' == True: # isto za desno tipko
-                        self.stevec_min.config(text= str( int()))
-                self.gumbi = tk.Button(zaslon, height = 1, width = 1,
-                                       text = '', command = klik_z_misko )
-                self.gumbi.grid(row = vrstice, column = stolpci)
-                        
-       
+        self.nalepke = []
+        for _ in range(9):
+            vrstica = []
+            for _ in range(9):
+                vrstica.append(None)
+            self.nalepke.append(vrstica)
+        
+        for i in range(9):
+            for j in range(9):
+                p = tk.Frame( highlightbackground="green", highlightcolor="green",
+                              highlightthickness=1, width=50, height=50, bd= 0)
+                p.grid(row = i + 1, column = j)
+                def levi_klik(event, v=i, s=j):
+                    self.primerjaj(v, s)
+                def desni_klik(event, v=i,s=j):
+                    self.oznaci(v, s)
+                p.bind("<Button-1>", levi_klik)
+                p.bind("<Button-3>", desni_klik)
+                self.polja[i][j] = p
 
 
-
+    def oznaci(self, i, j):
+        if self.nalepke[i][j] != None:
+            l.destroy()
+            self.nalepke[i][j] = None
+        else:
+            l = tk.Label(self.polja[i][j], text='X')
+            self.nalepke[i][j] = l
+            l.pack()
+        # posodobi stevec
 
         
-    def primerjaj_pritisnjen_gumb_s_tem_kar_je_v_matriki(self):
+    def primerjaj(self, x, y):
         pass
 
     def posodobi_stevec(self):
