@@ -56,5 +56,6 @@ class Minsko_polje:
 
 m = Minsko_polje()
 m.inicializiraj_polja()
-print(m.matrika)
+matrika = m.matrika
+print(matrika)
 
