@@ -28,22 +28,18 @@ class Minolovec:
                 p.grid(row=i + 1, column=j)
                 
                 def levi_klik(event, v=i, s=j, i=[0]):
-                    self.primerjaj(v, s) 
+                    self.primerjaj(v, s)
                 def desni_klik(event, v=i, s=j):
                     self.oznaci(v, s)
+                    self.posodobi_stevec1()
                 p.bind("<Button-1>", levi_klik)
                 p.bind("<Button-3>", desni_klik)
                 self.polja[i][j] = p
 
-    def oznaci(self, i, j):       
-        l = tk.Button(self.polja[i][j], width=5, height=3, text='X')
-        l.bind("<Button-1>", self.posodobi_stevec2())
-        l.bind("<Button-3>", self.posodobi_stevec1())
-        l['command'] = l.destroy
-        l.pack()
-        '''  def klik(event):
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 :
-        self.posodobi_stevec2()'''
+    def oznaci(self, i, j):
+        l = tk.Button(self.polja[i][j], width=5, height=3, text='X') 
+        l['command'] = l.destroy   #ne znam narediti, da ko bi se gumb unicil
+        l.pack()                     #bi hkrati poklical self.posodobi_stevec2()
             
     def primerjaj(self, i, j, k=[0]):
         k[0]+=1
