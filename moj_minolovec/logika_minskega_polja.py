@@ -1,14 +1,17 @@
-import random 
+import random
 
 class Minsko_polje:
 
     def __init__(self):
+        
         self.matrika = []
         for _ in range(9):
             vrstica = []
             for _ in range(9):
                 vrstica.append(0)
             self.matrika.append(vrstica)
+            
+        self.stevec = '10'
 
     def dodaj_mino(self, x, y):
         self.matrika[x][y] = 10
@@ -47,15 +50,42 @@ class Minsko_polje:
                     if (x, y) not in polozaji_min:
                         if x != a[0] or y != a[1] :
                             self.povecaj_polje(x, y)
-                
+            
+    def primerjaj(self, i, j, k=[0]):
+        k[0]+=1
+        
+        if self.matrika[i][j] == 10:   #uničiš prvotni zaslon in ustavariš končnega
+            return False
+            
+        elif k[0] == 71:     # če je stevilo odkrit polj=71 potem si zmagal saj
+            return True                 # so neodkrita ostala le polja z bombami  
 
+        else:
+            a = self.matrika[i][j]
+            return a
+        
+             
+    def posodobi_stevec1(self):
+        sm = self.stevec
+        smt = int(sm)
+        smt1 = smt - 1
+        
+        sm = str(smt1)
+
+
+    def posodobi_stevec2(self):
+        sm = self.stevec
+        smt = int(sm)
+        smt2 = smt + 1
+        
+        sm = str(smt2)
 
         
-            
-            
-
 m = Minsko_polje()
 m.inicializiraj_polja()
 matrika = m.matrika
+stevec = m.stevec
+
 print(matrika)
+print(stevec)
 
