@@ -1,4 +1,4 @@
-# Minolovec
+# Minesweeper
 
 Ena najstarejsih in najbolje poznanih iger na svetu.
 Programska koda je v celoti pisana v Python-u (3 generacija)
