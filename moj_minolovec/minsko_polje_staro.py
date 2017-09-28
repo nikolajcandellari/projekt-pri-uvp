@@ -6,10 +6,17 @@ class Minolovec:
 
     def __init__(self, zaslon):
 
+
         #stevec_min
 
         self.stevec_min = tk.Label(zaslon, text = '10')
         self.stevec_min.grid(row = 0, column = 0)
+
+
+        #polja kliknjena in niso enaka 0
+            
+        self.oznacbe = []
+
 
         #minsko polje
         
@@ -45,7 +52,7 @@ class Minolovec:
         l.pack()
             
     def primerjaj(self, i, j, k=[0]):
-        k[0]+=1
+        
         from logika_minskega_polja import matrika
         
         if matrika[i][j] == 10:   #uničiš prvotni zaslon in ustavariš končnega
@@ -74,10 +81,37 @@ class Minolovec:
             zaslon3.mainloop()
 
         else:
+            
             a = matrika[i][j]
-            vrednost_matrike = tk.Label(self.polja[i][j], width=5, height=3,
-                                        text= a)
-            vrednost_matrike.pack()
+
+            if a != 0:
+                
+                k[0]+=1
+                vrednost_matrike = tk.Label(self.polja[i][j], width=5,
+                                            height=3, text= a)
+                vrednost_matrike.pack()
+                
+                oznacbe = self.oznacbe
+                oznacbe.append([i, j])
+                
+            else:
+                
+                okolica_nicle = logika.okolica(i, j)
+                for e in okolica_nicle:
+                    if e not in self.oznacbe:
+
+                        k[0]+=1
+                    
+                        x = e[0]
+                        y = e[1]
+                        b = matrika[x][y]
+                        vrednost_matrike = tk.Label(self.polja[x][y], width=5,
+                                                height=3, text=b)
+                        vrednost_matrike.pack()
+
+                        if b == 0 and (x != i or y != j ):   #v primeru da je
+                            self.primerjaj(i=x, j=y, k=[0])  #soseda enaka 0
+
 
     def posodobi_stevec1(self):
         sm = self.stevec_min
@@ -91,7 +125,12 @@ class Minolovec:
         smt = int(sm['text'])
         smt2 = smt + 1  
         sm.config(text = str(smt2))
-
+        
+        
+    def zmagovalni_pogoji(self):
+        print(self.polja.count('None'))
+        
+        
 
 zaslon = tk.Tk()
 Minolovec(zaslon)

@@ -1,5 +1,38 @@
 import random
 
+#za graf. umesnik 
+
+matrika_okolic = []
+for _ in range(9):
+    vrstica = []
+    for _ in range(9):
+        vrstica.append(None)
+    matrika_okolic.append(vrstica)
+
+    
+def okolica(i, j):
+    i_j_okolica = []
+                
+    i_okolica = [i - 1, i, i + 1]
+    for e in i_okolica:
+        if e < 0 or 8 < e:
+            i_okolica.remove(e)
+
+    j_okolica = [j - 1, j, j + 1]
+    for e in j_okolica:
+        if e < 0 or 8 < e:
+            j_okolica.remove(e)
+                    
+    for i in i_okolica:
+        for j in j_okolica:
+            if matrika_okolic[i][j] == None:
+                i_j_okolica.append([i, j])
+                matrika_okolic[i][j] = 'odkrita'
+            
+    return i_j_okolica
+
+#osnovno minsko polje
+
 class Minsko_polje:
 
     def __init__(self):
@@ -50,6 +83,9 @@ class Minsko_polje:
                     if (x, y) not in polozaji_min:
                         if x != a[0] or y != a[1] :
                             self.povecaj_polje(x, y)
+#
+#samo za minsko_polje_popravljeno
+#                           
             
     def primerjaj(self, i, j, k=[0]):
         k[0]+=1
@@ -84,8 +120,4 @@ class Minsko_polje:
 m = Minsko_polje()
 m.inicializiraj_polja()
 matrika = m.matrika
-stevec = m.stevec
-
 print(matrika)
-print(stevec)
-
