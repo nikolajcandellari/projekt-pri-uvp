@@ -1,5 +1,5 @@
 import tkinter as tk
-import logika_minskega_polja as logika
+import logika
 
 class Minolovec:
 
@@ -12,8 +12,8 @@ class Minolovec:
         self.stevec_min.grid(row = 0, column = 0)
 
 
-        #polja kliknjena in niso enaka 0
-        self.oznacbe = []
+        self.enojno_kliknjena = []
+        self.kliknjena = logika.matrika_okolic
 
 
         #minsko polje
@@ -54,12 +54,8 @@ class Minolovec:
         l.pack()
             
     def primerjaj(self, i, j):
-        
-        odkrita_okolica = logika.prestej_polja_matrike(logika.matrika_okolic)
-        odkrita = len(self.oznacbe) + odkrita_okolica
-        print(odkrita)
 
-        from logika_minskega_polja import matrika
+        from logika import matrika
         
         if matrika[i][j] == 10:   #uničiš prvotni zaslon in ustavariš končnega
             
@@ -74,17 +70,6 @@ class Minolovec:
              koncni_napis.pack()
              zaslon2.mainloop()
             
-        elif  odkrita == 71:
-
-            zaslon.destroy()
-            
-            zaslon3 = tk.Tk()
-            zmagovalno_okno = tk.Frame(zaslon3, width=10, height=10)
-            zmagovalni_napis = tk.Button(zmagovalno_okno, width=10, height=10,
-                                         text='ZMAGAL SI')    
-            zmagovalno_okno.pack()
-            zmagovalni_napis.pack()
-            zaslon3.mainloop()
 
         else:
             
@@ -96,14 +81,15 @@ class Minolovec:
                                             height=3, text= a)
                 vrednost_matrike.pack()
                 
-                oznacbe = self.oznacbe
-                oznacbe.append([i, j])
+                self.enojno_kliknjena.append([i, j])
+                self.kliknjena[i][j] = 'odkrita'
+                
                 
             else:
                 
                 okolica_nicle = logika.okolica(i, j)
                 for e in okolica_nicle:
-                    if e not in self.oznacbe:
+                    if e not in self.enojno_kliknjena:
                         x = e[0]
                         y = e[1]
                         b = matrika[x][y]
@@ -132,5 +118,11 @@ class Minolovec:
         
 
 zaslon = tk.Tk()
-Minolovec(zaslon)
+m = Minolovec(zaslon)
 zaslon.mainloop()
+'''if logika.prestej_polja_matrike(m.kliknjena) != 71:
+    print()
+    zaslon.mainloop()
+else:
+    zaslon.quit
+    print('ZMAGAL SI')'''

@@ -62,17 +62,28 @@ class Minsko_polje:
 
     def inicializiraj_polja(self):
 
-        pra_x = int(input("zacetno polje x med 0 in 8"))
+        pra_x = int(input("zacetna vrstica med 0 in 8"))
         self.zacetno_polje.append(pra_x)
         
-        pra_y = int(input("zacetno polje y med 0 in 8"))
+        pra_y = int(input("zacetni stolpec med 0 in 8"))
         self.zacetno_polje.append(pra_y)
-    
-        zacetek = okolica(pra_x, pra_y)
-        for e in zacetek:
-            matrika_okolic[e[0]][e[1]] = None
-            
+
+        zacetek = []
         polozaji_min = []
+                
+        x_okolica = [pra_x - 1, pra_x, pra_x + 1]
+        for e in x_okolica:
+            if e < 0 or 8 < e:
+                x_okolica.remove(e)
+
+        y_okolica = [pra_y - 1, pra_y, pra_y + 1]
+        for e in y_okolica:
+            if e < 0 or 8 < e:
+                y_okolica.remove(e)
+                    
+        for x in x_okolica:
+            for y in y_okolica:
+                zacetek.append([x, y])          
 
         # nakljucno doloceni polozaji 10 min
         
