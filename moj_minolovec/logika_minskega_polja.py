@@ -1,6 +1,14 @@
 import random
 
-#za graf. umesnik 
+#za graf. umesnik
+
+def prestej_polja_matrike(matrika):
+    stevilo_nepraznih_polj = 0
+    for vrstica in matrika:
+        for polje in vrstica:
+            if polje != None:
+                stevilo_nepraznih_polj += 1
+    return stevilo_nepraznih_polj
 
 matrika_okolic = []
 for _ in range(9):
@@ -8,7 +16,6 @@ for _ in range(9):
     for _ in range(9):
         vrstica.append(None)
     matrika_okolic.append(vrstica)
-
     
 def okolica(i, j):
     i_j_okolica = []
@@ -31,6 +38,7 @@ def okolica(i, j):
             
     return i_j_okolica
 
+
 #osnovno minsko polje
 
 class Minsko_polje:
@@ -44,7 +52,7 @@ class Minsko_polje:
                 vrstica.append(0)
             self.matrika.append(vrstica)
             
-        self.stevec = '10'
+        self.zacetno_polje = []
 
     def dodaj_mino(self, x, y):
         self.matrika[x][y] = 10
@@ -53,6 +61,17 @@ class Minsko_polje:
         self.matrika[x][y] += 1
 
     def inicializiraj_polja(self):
+
+        pra_x = int(input("zacetno polje x med 0 in 8"))
+        self.zacetno_polje.append(pra_x)
+        
+        pra_y = int(input("zacetno polje y med 0 in 8"))
+        self.zacetno_polje.append(pra_y)
+    
+        zacetek = okolica(pra_x, pra_y)
+        for e in zacetek:
+            matrika_okolic[e[0]][e[1]] = None
+            
         polozaji_min = []
 
         # nakljucno doloceni polozaji 10 min
@@ -61,8 +80,9 @@ class Minsko_polje:
             x = random.randint(0, 8)
             y = random.randint(0, 8)
             if (x, y) not in polozaji_min:
-                self.dodaj_mino(x, y)
-                polozaji_min.append((x, y))
+                if [x, y] not in zacetek:
+                    self.dodaj_mino(x, y)
+                    polozaji_min.append((x, y))
 
         # povecanje stevil v poljih glede na število sosednjih min
 
@@ -83,40 +103,7 @@ class Minsko_polje:
                     if (x, y) not in polozaji_min:
                         if x != a[0] or y != a[1] :
                             self.povecaj_polje(x, y)
-#
-#samo za minsko_polje_popravljeno
-#                           
-            
-    def primerjaj(self, i, j, k=[0]):
-        k[0]+=1
-        
-        if self.matrika[i][j] == 10:   #uničiš prvotni zaslon in ustavariš končnega
-            return False
-            
-        elif k[0] == 71:     # če je stevilo odkrit polj=71 potem si zmagal saj
-            return True                 # so neodkrita ostala le polja z bombami  
 
-        else:
-            a = self.matrika[i][j]
-            return a
-        
-             
-    def posodobi_stevec1(self):
-        sm = self.stevec
-        smt = int(sm)
-        smt1 = smt - 1
-        
-        sm = str(smt1)
-
-
-    def posodobi_stevec2(self):
-        sm = self.stevec
-        smt = int(sm)
-        smt2 = smt + 1
-        
-        sm = str(smt2)
-
-        
 m = Minsko_polje()
 m.inicializiraj_polja()
 matrika = m.matrika
