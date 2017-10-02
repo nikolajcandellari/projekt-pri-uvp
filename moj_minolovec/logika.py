@@ -52,24 +52,26 @@ class Minsko_polje:
                 vrstica.append(0)
             self.matrika.append(vrstica)
             
-        self.zacetno_polje = []
 
     def dodaj_mino(self, x, y):
         self.matrika[x][y] = 10
 
+
     def povecaj_polje(self, x, y):
         self.matrika[x][y] += 1
 
+
     def inicializiraj_polja(self):
 
-        pra_x = int(input("zacetna vrstica med 0 in 8"))
-        self.zacetno_polje.append(pra_x)
+        #namesto zacetnega klika
         
+        pra_x = int(input("zacetna vrstica med 0 in 8"))
         pra_y = int(input("zacetni stolpec med 0 in 8"))
-        self.zacetno_polje.append(pra_y)
 
         zacetek = []
         polozaji_min = []
+
+        #okolica zacetnega klika
                 
         x_okolica = [pra_x - 1, pra_x, pra_x + 1]
         for e in x_okolica:

@@ -6,15 +6,16 @@ class Minolovec:
     def __init__(self, zaslon):
 
 
-        #stevec_min
+        #stevec min
 
         self.stevec_min = tk.Label(zaslon, text = '10')
         self.stevec_min.grid(row = 0, column = 0)
 
 
+        #matrika kliknjenih polj
+        
         self.enojno_kliknjena = []
         self.kliknjena = logika.matrika_okolic
-        
 
 
         #minsko polje
@@ -25,6 +26,8 @@ class Minolovec:
             for _ in range(9):
                 vrstica.append(None)
             self.polja.append(vrstica)
+
+        #ustvarjanje prikaza polj
   
         for i in range(9):
             for j in range(9):
@@ -33,7 +36,7 @@ class Minolovec:
                               highlightthickness=1, width=50, height=50)             
                 p.grid(row=i + 1, column=j)
                 
-                def levi_klik(event, v=i, s=j, i=[0]):
+                def levi_klik(event, v=i, s=j):
                     self.primerjaj(v, s)
                     
                 def desni_klik(event, v=i, s=j):
@@ -44,6 +47,7 @@ class Minolovec:
                 p.bind("<Button-3>", desni_klik)
                 self.polja[i][j] = p
 
+
     def oznaci(self, i, j):       
         l = tk.Button(self.polja[i][j], width=5, height=3, text='X')
         
@@ -53,12 +57,15 @@ class Minolovec:
             
         l['command'] = oznaci_in_unici
         l.pack()
+
             
     def primerjaj(self, i, j):
-
         from logika import matrika
+
+
+        #uničiš prvotni zaslon in ustavariš končnega
         
-        if matrika[i][j] == 10:   #uničiš prvotni zaslon in ustavariš končnega
+        if matrika[i][j] == 10:
             
              zaslon.destroy()
              
@@ -70,7 +77,7 @@ class Minolovec:
              koncno_okno.pack()
              koncni_napis.pack()
              zaslon2.mainloop()
-            
+    
 
         else:
             
@@ -101,13 +108,13 @@ class Minolovec:
                         vrednost_matrike.pack()
                         self.zmaga()
 
-                        if b == 0 and (x != i or y != j ):   #v primeru da je
-                            self.primerjaj(i=x, j=y)         #soseda enaka 0
-                            self.zmaga()
+                        #v primeru da je sosednje polje enako 0
+                        if b == 0 and (x != i or y != j ):   
+                            self.primerjaj(i=x, j=y)         
 
 
     def zmaga(self):
-        if self.kliknjena == 71:
+        if logika.prestej_polja_matrike(self.kliknjena) == 71:
             zaslon.destroy()
             
             zaslon3 = tk.Tk()
@@ -118,6 +125,7 @@ class Minolovec:
             zmagovalni_napis.pack()
             zaslon3.mainloop()
 
+    #funkciji za posodabljanje stevca
 
     def posodobi_stevec1(self):
         sm = self.stevec_min
@@ -133,14 +141,6 @@ class Minolovec:
         sm.config(text = str(smt2))
 
         
-        
-
 zaslon = tk.Tk()
 m = Minolovec(zaslon)
 zaslon.mainloop()
-'''if logika.prestej_polja_matrike(m.kliknjena) != 71:
-    print()
-    zaslon.mainloop()
-else:
-    zaslon.quit
-    print('ZMAGAL SI')'''
