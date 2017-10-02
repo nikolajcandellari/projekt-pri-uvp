@@ -14,6 +14,7 @@ class Minolovec:
 
         self.enojno_kliknjena = []
         self.kliknjena = logika.matrika_okolic
+        
 
 
         #minsko polje
@@ -83,6 +84,7 @@ class Minolovec:
                 
                 self.enojno_kliknjena.append([i, j])
                 self.kliknjena[i][j] = 'odkrita'
+                self.zmaga()
                 
                 
             else:
@@ -97,9 +99,24 @@ class Minolovec:
                         vrednost_matrike = tk.Label(self.polja[x][y], width=5,
                                                 height=3, text=b)
                         vrednost_matrike.pack()
+                        self.zmaga()
 
                         if b == 0 and (x != i or y != j ):   #v primeru da je
                             self.primerjaj(i=x, j=y)         #soseda enaka 0
+                            self.zmaga()
+
+
+    def zmaga(self):
+        if self.kliknjena == 71:
+            zaslon.destroy()
+            
+            zaslon3 = tk.Tk()
+            zmagovalno_okno = tk.Frame(zaslon3, width=10, height=10)
+            zmagovalni_napis = tk.Button(zmagovalno_okno, width=10, height=10,
+                                         text='ZMAGAL SI')    
+            zmagovalno_okno.pack()
+            zmagovalni_napis.pack()
+            zaslon3.mainloop()
 
 
     def posodobi_stevec1(self):
@@ -114,6 +131,7 @@ class Minolovec:
         smt = int(sm['text'])
         smt2 = smt + 1  
         sm.config(text = str(smt2))
+
         
         
 
